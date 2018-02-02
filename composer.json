@@ -1,0 +1,6 @@
+{
+    "name": "aesonus/session-storage",
+    "autoload": {
+        "psr-4": {"Aesonus\\": "/src"}
+    }
+}
