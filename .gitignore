@@ -3,3 +3,4 @@ puphpet/config-custom.yaml
 /.vagrant
 /puphpet
 /Vagrantfile
+/vendor
