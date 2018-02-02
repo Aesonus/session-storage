@@ -1,2 +1,2 @@
 # session-storage
-Description coming soon...
+Allows for abstract access of session superglobal
