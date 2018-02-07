@@ -8,40 +8,63 @@
 namespace Aesonus\Session;
 
 /**
- * A basic session to override if desired
+ * {@inheritdoc}
  *
- * @author Aesonus
+ * @author Aesonus <corylcomposinger at gmail.com>
  */
 abstract class AbstractSession implements Contracts\SessionInterface
 {
+
+    protected $key;
+
     /**
      * {@inheritdoc}
      */
-    public function get($key)
+    public function setKey($key)
     {
-        return $this->has($key) ? $_SESSION[$key] : null;
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function has($key)
-    {
-        return isset($_SESSION[$key]);
-    }
-    /**
-     * {@inheritdoc}
-     */
-    public function set($key, $value)
-    {
-        $_SESSION[$key] = $value;
+        $this->key = $key;
         return $this;
     }
+    
     /**
      * {@inheritdoc}
      */
-    public function clear($key)
+    public function hasKey()
     {
-        unset($_SESSION[$key]);
+        return isset($this->key);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function clear()
+    {
+        unset($_SESSION[$this->key]);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get()
+    {
+        return $this->has() ? $_SESSION[$this->key] : NULL;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function has()
+    {
+        return isset($_SESSION[$this->key]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set($value)
+    {
+        $_SESSION[$this->key] = $value;
         return $this;
     }
 }

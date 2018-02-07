@@ -8,38 +8,49 @@
 namespace Aesonus\Session\Contracts;
 
 /**
- *
- * @author Aesonus
+ * Abstraction for a session object that can only read and write a single key.
+ * Keep in mind that this only supports accessing the first level of the session
+ * superglobal
+ * @author Aesonus <corylcomposinger at gmail.com>
  */
 interface SessionInterface
 {
+
     /**
-     * Gets a value from $_SESSION superglobal with key
-     * @param string $key Key to fetch from
-     * @return mixed 
+     * Sets the key that this object accesses in the session superglobal
+     * @param string $key Key to read from.
+     * @return $this Returns $this for chaining
      */
-    public function get($key);
+    public function setKey($key);
     
     /**
-     * Sets a value from $_SESSION superglobal
-     * @param string $key Key to set to
-     * @param mixed $value Value to store
-     * @return $this 
-     */
-    public function set($key, $value);
-    
-    /**
-     * Has a key in $_SESSION superglobal
-     * @param string $key Key to set to
+     * Returns whether the key has been set
      * @return boolean 
      */
-    public function has($key);    
-    
+    public function hasKey();
+
     /**
-     * Destroy a key in $_SESSION superglobal
-     * @param string $key Key to clear from
-     * @return $this 
+     * Get data from the session superglobal
+     * @return mixed
      */
-    public function clear($key);
-    
+    public function get();
+
+    /**
+     * Sets data to the session superglobal
+     * @param mixed $value
+     * @return $this Returns $this for chaining
+     */
+    public function set($value);
+
+    /**
+     * Returns whether there is data stored in the session superglobal
+     * @return boolean
+     */
+    public function has();
+
+    /**
+     * Clear data from the session superglobal
+     * @return $this Returns $this for chaining
+     */
+    public function clear();
 }
