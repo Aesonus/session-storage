@@ -94,4 +94,9 @@ class AbstractSessionTest extends \PHPUnit\Framework\TestCase
         $this->session->set(69);
         $this->assertTrue($this->session->has());
     }
+    
+    public function testClear()
+    {
+        $this->assertNull($this->session->setKey('key')->set("test")->clear()->get());
+    }
 }
