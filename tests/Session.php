@@ -4,14 +4,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 namespace Aesonus\Tests;
 
 /**
- * Description of newPHPClass
+ * Class to test project
  *
  * @author Aesonus <corylcomposinger at gmail.com>
  */
-class TestAbstractSession extends \PHPUnit\Framework\TestCase
+class Session extends \Aesonus\Session\AbstractSession
 {
-   
+    public function __construct()
+    {
+        $this->session = [];
+    }
 }

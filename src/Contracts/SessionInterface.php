@@ -18,7 +18,7 @@ interface SessionInterface
 
     /**
      * Sets the key that this object accesses in the session superglobal
-     * @param string $key Key to read from.
+     * @param mixed $key Key to read/write to
      * @return $this Returns $this for chaining
      */
     public function setKey($key);
@@ -28,6 +28,12 @@ interface SessionInterface
      * @return boolean 
      */
     public function hasKey();
+    
+    /**
+     * Must return the key that was set or null
+     * @return mixed|null Must return the key that was set or null
+     */
+    public function getKey();
 
     /**
      * Get data from the session superglobal

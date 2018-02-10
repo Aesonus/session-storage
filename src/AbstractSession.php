@@ -16,6 +16,12 @@ abstract class AbstractSession implements Contracts\SessionInterface
 {
 
     protected $key;
+    protected $session;
+    
+    public function __construct()
+    {
+        $this->session = &$_SESSION;
+    }
 
     /**
      * {@inheritdoc}
@@ -24,6 +30,11 @@ abstract class AbstractSession implements Contracts\SessionInterface
     {
         $this->key = $key;
         return $this;
+    }
+    
+    public function getKey()
+    {
+        return $this->key;
     }
     
     /**
@@ -39,7 +50,7 @@ abstract class AbstractSession implements Contracts\SessionInterface
      */
     public function clear()
     {
-        unset($_SESSION[$this->key]);
+        unset($this->session[$this->key]);
         return $this;
     }
 
@@ -48,7 +59,7 @@ abstract class AbstractSession implements Contracts\SessionInterface
      */
     public function get()
     {
-        return $this->has() ? $_SESSION[$this->key] : NULL;
+        return $this->has() ? $this->session[$this->key] : NULL;
     }
 
     /**
@@ -56,7 +67,7 @@ abstract class AbstractSession implements Contracts\SessionInterface
      */
     public function has()
     {
-        return isset($_SESSION[$this->key]);
+        return isset($this->session[$this->key]);
     }
 
     /**
@@ -64,7 +75,7 @@ abstract class AbstractSession implements Contracts\SessionInterface
      */
     public function set($value)
     {
-        $_SESSION[$this->key] = $value;
+        $this->session[$this->key] = $value;
         return $this;
     }
 }

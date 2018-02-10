@@ -1,10 +1,12 @@
 {
     "name": "aesonus/session-storage",
     "autoload": {
-        "psr-4": {"Aesonus\\Session\\": "/src"}
+        "psr-4": {
+            "Aesonus\\Session\\": "src",
+            "Aesonus\\Tests\\": "tests"
+        }
     },
     "require-dev": {
-        "php-di/php-di": "^5.4",
         "phpunit/phpunit": "^5.7"
     },
     "require": {

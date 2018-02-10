@@ -5,3 +5,4 @@ puphpet/config-custom.yaml
 /Vagrantfile
 /vendor
 /html
+/composer.lock
