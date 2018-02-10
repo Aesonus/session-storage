@@ -86,7 +86,7 @@ class AbstractSessionTest extends \PHPUnit\Framework\TestCase
             [['l' => 4], 56, ['y' => 4]]
         ];
     }
-    
+
     public function testHas()
     {
         $this->session->setKey('key');
@@ -94,9 +94,10 @@ class AbstractSessionTest extends \PHPUnit\Framework\TestCase
         $this->session->set(69);
         $this->assertTrue($this->session->has());
     }
-    
+
     public function testClear()
     {
+        $this->assertInstanceOf(SessionInterface::class, $this->session->clear());
         $this->assertNull($this->session->setKey('key')->set("test")->clear()->get());
     }
 }

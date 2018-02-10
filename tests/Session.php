@@ -17,6 +17,9 @@ namespace Aesonus\Tests;
  */
 class Session extends \Aesonus\Session\AbstractSession
 {
+    /**
+     * Override so that we can test methods without having to use $_SESSION
+     */
     public function __construct()
     {
         $this->session = [];
