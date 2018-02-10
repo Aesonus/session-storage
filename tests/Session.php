@@ -8,7 +8,7 @@
  * file that was distributed with this source code
  */
 
-namespace Aesonus\Tests;
+namespace Aesonus\Session\Tests;
 
 /**
  * Class to test project
