@@ -19,7 +19,7 @@ trait Sessionable
     protected $key;
     protected $session;
     
-    public function __construct()
+    public function setup()
     {
         $this->session = &$_SESSION;
     }
