@@ -68,7 +68,7 @@ trait Sessionable
      */
     public function has()
     {
-        return isset($this->session[$this->key]);
+        return key_exists($this->key, $this->session) && isset($this->session[$this->key]);
     }
 
     /**
