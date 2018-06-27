@@ -26,6 +26,9 @@ class Session implements Contracts\SessionInterface
         $this->setup($session_var);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setup(&$session_var = null)
     {
         if (!isset($session_var)) {

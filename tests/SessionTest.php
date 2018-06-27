@@ -11,7 +11,7 @@
 namespace Aesonus\Session\Tests;
 
 /**
- * Description of newPHPClass
+ * Tests the Session class
  *
  * @author Aesonus <corylcomposinger at gmail.com>
  */
