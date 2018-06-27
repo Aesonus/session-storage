@@ -1,5 +1,12 @@
 {
     "name": "aesonus/session-storage",
+    "description": "Allows for access to session superglobal with a fluent interface",
+    "authors": [
+        {
+            "name": "Aesonus",
+            "email": "corylcomposinger@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Aesonus\\Session\\": "src",

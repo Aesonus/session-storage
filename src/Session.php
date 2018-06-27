@@ -48,6 +48,9 @@ class Session implements Contracts\SessionInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getKey()
     {
         return $this->key;
