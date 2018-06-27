@@ -15,15 +15,25 @@ namespace Aesonus\Session;
  *
  * @author Aesonus <corylcomposinger at gmail.com>
  */
-abstract class AbstractSession implements Contracts\SessionInterface
+class Session implements Contracts\SessionInterface
 {
 
     protected $key;
     protected $session;
-    
-    public function __construct()
+
+    public function __construct(&$session_var = null)
     {
-        $this->session = &$_SESSION;
+        $this->setup($session_var);
+    }
+
+    public function setup(&$session_var = null)
+    {
+        if (!isset($session_var)) {
+            $this->session = &$_SESSION;
+        } else {
+            $this->session = &$session_var;
+        }
+        return $this;
     }
 
     /**
@@ -34,12 +44,12 @@ abstract class AbstractSession implements Contracts\SessionInterface
         $this->key = $key;
         return $this;
     }
-    
+
     public function getKey()
     {
         return $this->key;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -70,7 +80,7 @@ abstract class AbstractSession implements Contracts\SessionInterface
      */
     public function has()
     {
-        return isset($this->session[$this->key]);
+        return key_exists($this->key, $this->session) && isset($this->session[$this->key]);
     }
 
     /**
