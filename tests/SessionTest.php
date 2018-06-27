@@ -10,8 +10,6 @@
 
 namespace Aesonus\Session\Tests;
 
-use Aesonus\Session\Contracts\SessionInterface;
-
 /**
  * Description of newPHPClass
  *
