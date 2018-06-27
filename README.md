@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Aesonus/session-storage.svg?branch=master)](https://travis-ci.org/Aesonus/session-storage)
+
 # Session Storage
 
 Allows for access to session superglobal with a fluent interface
