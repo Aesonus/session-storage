@@ -57,8 +57,8 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
      */
     public function setKeySetsTheKeyProperty($expected_key)
     {
-        $this->session->setKey($expected_key);
-        $actual = $this->getPropertyValue($this->session, 'key');
+        $session = $this->session->setKey($expected_key);
+        $actual = $this->getPropertyValue($session, 'key');
         $this->assertSame($expected_key, $actual);
     }
     
@@ -73,15 +73,16 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
     /**
      * @test
      */
-    public function setKeyIsFluent()
+    public function setKeyIsImmutable()
     {
-        $this->assertSame($this->session, $this->session->setKey('foo'));
-        return $this->session;
+        $new_session = $this->session->setKey('foo');
+        $this->assertInstanceOf(\Aesonus\Session\Contracts\SessionInterface::class, $new_session);
+        return $new_session;
     }
     
     /**
      * @test
-     * @depends setKeyIsFluent
+     * @depends setKeyIsImmutable
      */
     public function hasKeyReturnsTrueIfTheKeyPropertyIsSet($session)
     {

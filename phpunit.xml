@@ -12,8 +12,5 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
         </whitelist>
-        <blacklist>
-            <directory>src/Contracts</directory>
-        </blacklist>
     </filter>
 </phpunit>

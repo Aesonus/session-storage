@@ -25,12 +25,13 @@ class Session implements Contracts\SessionInterface
     {
         $this->setup($session_var);
     }
-
+    
     /**
      * {@inheritdoc}
      */
     public function setup(&$session_var = null)
     {
+        
         if (!isset($session_var)) {
             $this->session = &$_SESSION;
         } else {
@@ -45,7 +46,9 @@ class Session implements Contracts\SessionInterface
     public function setKey($key)
     {
         $this->key = $key;
-        return $this;
+        $new = clone $this;
+        
+        return $new;
     }
 
     /**
