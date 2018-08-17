@@ -142,7 +142,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
     {
         // This mocks a session value that has already been set
         $this->sessionVar['test key'] = 3.14159;
-        $this->sessionVar['not accessed'] = 'poop';
+        $this->sessionVar['not accessed'] = 'do not pick me';
         $this->session->setKey('test key');
     }
     

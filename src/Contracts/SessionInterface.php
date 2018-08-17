@@ -19,31 +19,31 @@ interface SessionInterface
 {
     
     /**
-     * Set the session property to $session_var reference. Set session
+     * Set the session property to $session_var reference. Must set session
      * property to $_SESSION reference if $session_var not provided.
      * @param array|null $session_var [optional]
-     * @return $this for fluency
+     * @return $this
      */
-    public function setup(&$session_var = NULL);
+    public function setup(&$session_var = NULL): self;
     
     /**
      * Sets the key that this object accesses in the session superglobal
-     * @param mixed $key Key to read/write to
-     * @return $this for fluency
+     * @param type $key
+     * @return SessionInterface
      */
-    public function setKey($key);
+    public function setKey($key): self;
     
     /**
      * Returns whether the key has been set
-     * @return boolean 
+     * @return bool
      */
-    public function hasKey();
+    public function hasKey(): bool;
     
     /**
      * Must return the key that was set or null
-     * @return mixed|null Must return the key that was set or null
+     * @return string|null Must return the key that was set or null
      */
-    public function getKey();
+    public function getKey(): ?string;
 
     /**
      * Get data from the session superglobal at previously set key
@@ -54,19 +54,19 @@ interface SessionInterface
     /**
      * Sets data to the session superglobal at previously set key
      * @param mixed $value
-     * @return $this  for fluency
+     * @return $this
      */
-    public function set($value);
+    public function set($value): self;
 
     /**
      * Returns whether there is data stored in the session superglobal at previously set key
-     * @return boolean
+     * @return bool
      */
-    public function has();
+    public function has(): bool;
 
     /**
      * Clear data from the session superglobal at previously set key
-     * @return $this for fluency
+     * @return $this
      */
-    public function clear();
+    public function clear(): self;
 }

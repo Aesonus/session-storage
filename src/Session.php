@@ -10,12 +10,14 @@
 
 namespace Aesonus\Session;
 
+use Aesonus\Session\Contracts\SessionInterface;
+
 /**
  * {@inheritdoc}
  *
  * @author Aesonus <corylcomposinger at gmail.com>
  */
-class Session implements Contracts\SessionInterface
+class Session implements SessionInterface
 {
 
     protected $key;
@@ -29,7 +31,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setup(&$session_var = null)
+    public function setup(&$session_var = null): SessionInterface
     {
         
         if (!isset($session_var)) {
@@ -43,7 +45,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function setKey($key)
+    public function setKey($key): SessionInterface
     {
         $this->key = $key;
         $new = clone $this;
@@ -54,7 +56,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function getKey()
+    public function getKey(): ?string
     {
         return $this->key;
     }
@@ -62,7 +64,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function hasKey()
+    public function hasKey(): bool
     {
         return isset($this->key);
     }
@@ -70,7 +72,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function clear()
+    public function clear(): SessionInterface
     {
         unset($this->session[$this->key]);
         return $this;
@@ -87,7 +89,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function has()
+    public function has(): bool
     {
         return key_exists($this->key, $this->session) && isset($this->session[$this->key]);
     }
@@ -95,7 +97,7 @@ class Session implements Contracts\SessionInterface
     /**
      * {@inheritdoc}
      */
-    public function set($value)
+    public function set($value): SessionInterface
     {
         $this->session[$this->key] = $value;
         return $this;
