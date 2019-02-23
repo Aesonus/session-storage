@@ -1,85 +1,54 @@
 <?php
 /*
  * This file is part of the session-storage package
- * 
+ *
  *  (c) Cory Laughlin <corylcomposinger@gmail.com>
- * 
+ *
  * For full copyright and license information, please view the LICENSE
  * file that was distributed with this source code
  */
 
 namespace Aesonus\Session\Tests;
 
+use Aesonus\Session\Session;
+use Aesonus\TestLib\BaseTestCase;
+
 /**
  * Tests the Session class
  *
  * @author Aesonus <corylcomposinger at gmail.com>
  */
-class SessionTest extends \Aesonus\TestLib\BaseTestCase
+class SessionTest extends BaseTestCase
 {
-
     protected $sessionMockBuilder;
     protected $session;
-    protected $sessionVar = [];
+    protected $sessionVar;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->sessionMockBuilder = $this->getMockBuilder(\Aesonus\Session\Session::class);
+        $this->sessionMockBuilder = $this->getMockBuilder(Session::class);
         $this->session = $this
             ->sessionMockBuilder
             ->setMethods()
-            ->setConstructorArgs([&$this->sessionVar])
             ->getMock();
+        $this->sessionVar = &$_SESSION;
     }
-    
-    /**
-     * @test
-     */
-    public function setupSetsSessionPropertyToSessionVarReference()
+
+    protected function tearDown(): void
     {
-        //Set a value in the variable. If it's the same as in the test object
-        //then the variable was passed by reference
-        $this->sessionVar['test'] = true;
-        $this->assertEquals($this->sessionVar, $this->getPropertyValue($this->session, 'session'));
+        unset($_SESSION);
     }
-    
-    /**
-     * @test
-     */
-    public function setupMethodIsFluent()
-    {
-        $this->assertSame($this->session, $this->session->setup());
-    }
-    
-    /**
-     * @test
-     * @dataProvider validKeyDataProvider
-     */
-    public function setKeySetsTheKeyProperty($expected_key)
-    {
-        $session = $this->session->setKey($expected_key);
-        $actual = $this->getPropertyValue($session, 'key');
-        $this->assertSame($expected_key, $actual);
-    }
-    
-    public function validKeyDataProvider()
-    {
-        return [
-            ['key'],
-            [2]
-        ];
-    }
-    
+
     /**
      * @test
      */
     public function setKeyIsImmutable()
     {
         $new_session = $this->session->setKey('foo');
-        $this->assertInstanceOf(\Aesonus\Session\Contracts\SessionInterface::class, $new_session);
+        $this->assertNotSame($new_session, $this->session);
         return $new_session;
     }
-    
+
     /**
      * @test
      * @depends setKeyIsImmutable
@@ -89,7 +58,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
         $this->assertTrue($session->hasKey());
         return $session;
     }
-    
+
     /**
      * @test
      */
@@ -97,7 +66,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
     {
         $this->assertFalse($this->session->hasKey());
     }
-    
+
     /**
      * @test
      * @depends hasKeyReturnsTrueIfTheKeyPropertyIsSet
@@ -106,7 +75,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
     {
         $this->assertEquals('foo', $session->getKey());
     }
-    
+
     /**
      * @test
      */
@@ -114,30 +83,29 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
     {
         $this->assertSame($this->session, $this->session->set('testset'));
     }
-    
+
     /**
      * @test
-     * @dataProvider setMethodSetsTheValueAtKeyPropertyDataProvider
+     * @dataProvider setMethodSetsTheValueAtSetKeyDataProvider
      */
-    public function setMethodSetsTheValueAtKeyProperty($expected_value)
+    public function setMethodSetsTheValueAtSetKey($expected_key, $expected_value)
     {
-        $expected['test key'] = $expected_value;
-        $this->session->setKey('test key');
-        $this->session->set($expected_value);
-        
-        $actual = $this->getPropertyValue($this->session, 'session');
-        $this->assertEquals($expected, $actual);
+        $session = $this->session->setKey($expected_key);
+        $session->set($expected_value);
+
+        $actual = $this->sessionVar[$expected_key];
+        $this->assertEquals($expected_value, $actual);
     }
 
-    public function setMethodSetsTheValueAtKeyPropertyDataProvider()
+    public function setMethodSetsTheValueAtSetKeyDataProvider()
     {
         return [
-            ['value'],
-            [4],
-            [new \stdClass()]
+            ['key', 4],
+            'numeric key' => ['8', 'value'],
+            ['obj', new \stdClass()]
         ];
     }
-    
+
     private function setUpGetHasAndClearTests()
     {
         // This mocks a session value that has already been set
@@ -145,7 +113,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
         $this->sessionVar['not accessed'] = 'do not pick me';
         $this->session->setKey('test key');
     }
-    
+
     /**
      * @test
      */
@@ -154,7 +122,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
         $this->setUpGetHasAndClearTests();
         $this->assertTrue($this->session->has());
     }
-    
+
     /**
      * @test
      */
@@ -164,7 +132,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
         unset($this->sessionVar['test key']);
         $this->assertFalse($this->session->has());
     }
-    
+
     /**
      * @test
      */
@@ -173,7 +141,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
         $this->setUpGetHasAndClearTests();
         $this->assertEquals(3.14159, $this->session->get());
     }
-    
+
     /**
      * @test
      */
@@ -192,7 +160,7 @@ class SessionTest extends \Aesonus\TestLib\BaseTestCase
         $this->session->clear();
         $this->assertArrayNotHasKey('test key', $this->sessionVar);
     }
-    
+
     /**
      * @test
      */

@@ -1,9 +1,9 @@
 <?php
 /*
  * This file is part of the session-storage package
- * 
+ *
  *  (c) Cory Laughlin <corylcomposinger@gmail.com>
- * 
+ *
  * For full copyright and license information, please view the LICENSE
  * file that was distributed with this source code
  */
@@ -13,43 +13,29 @@ namespace Aesonus\Session;
 use Aesonus\Session\Contracts\SessionInterface;
 
 /**
- * {@inheritdoc}
+ * Responsible for setting session variable values at a specific key in a fluent
+ * interface.
  *
  * @author Aesonus <corylcomposinger at gmail.com>
  */
 class Session implements SessionInterface
 {
-
     protected $key;
     protected $session;
 
-    public function __construct(&$session_var = null)
+    public function __construct()
     {
-        $this->setup($session_var);
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function setup(&$session_var = null): SessionInterface
-    {
-        
-        if (!isset($session_var)) {
-            $this->session = &$_SESSION;
-        } else {
-            $this->session = &$session_var;
-        }
-        return $this;
+        $this->session = &$_SESSION;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setKey($key): SessionInterface
+    public function setKey(string $key): SessionInterface
     {
         $this->key = $key;
         $new = clone $this;
-        
+
         return $new;
     }
 
@@ -83,7 +69,7 @@ class Session implements SessionInterface
      */
     public function get()
     {
-        return $this->has() ? $this->session[$this->key] : NULL;
+        return $this->has() ? $this->session[$this->key] : null;
     }
 
     /**
@@ -91,7 +77,7 @@ class Session implements SessionInterface
      */
     public function has(): bool
     {
-        return key_exists($this->key, $this->session) && isset($this->session[$this->key]);
+        return isset($this->session[$this->key]);
     }
 
     /**

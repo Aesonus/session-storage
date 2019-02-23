@@ -18,17 +18,6 @@ Instantiate a new instance:
 $session = new Session();
 ```
 
-By default, session reference used is set to the base level of $_SESSION. This 
-can be set to a custom value:
-
-```php
-$session = new Session($_SESSION['namespace']);
-// Or
-$session = new Session();
-$session->setup($referenceVar);
-```
-Note that it can be set to a local reference. Very good for testing.
-
 Set the key before setting, getting, or clearing data:
 
 ```php
@@ -48,6 +37,8 @@ $value = $session
 Refer to PHP Docs and tests for more information.
 
 ## Tests
+
+Require dev dependencies then run the following:
 ```
-phpunit
+./vendor/bin/phpunit
 ```

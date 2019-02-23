@@ -1,9 +1,9 @@
 <?php
 /*
  * This file is part of the session-storage package
- * 
+ *
  *  (c) Cory Laughlin <corylcomposinger@gmail.com>
- * 
+ *
  * For full copyright and license information, please view the LICENSE
  * file that was distributed with this source code
  */
@@ -17,31 +17,24 @@ namespace Aesonus\Session\Contracts;
  */
 interface SessionInterface
 {
-    
+
     /**
-     * Set the session property to $session_var reference. Must set session
-     * property to $_SESSION reference if $session_var not provided.
-     * @param array|null $session_var [optional]
-     * @return $this
-     */
-    public function setup(&$session_var = NULL): self;
-    
-    /**
-     * Sets the key that this object accesses in the session superglobal
-     * @param type $key
+     * MUST set the key that this object accesses in the session superglobal.
+     * MUST return a new SessionInterface
+     * @param string $key
      * @return SessionInterface
      */
-    public function setKey($key): self;
-    
+    public function setKey(string $key): self;
+
     /**
-     * Returns whether the key has been set
+     * MUST return whether the key has been set
      * @return bool
      */
     public function hasKey(): bool;
-    
+
     /**
-     * Must return the key that was set or null
-     * @return string|null Must return the key that was set or null
+     * MUST return the key that was set or null
+     * @return string|null
      */
     public function getKey(): ?string;
 

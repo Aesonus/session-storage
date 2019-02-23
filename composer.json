@@ -15,7 +15,7 @@
         }
     },
     "require-dev": {
-        "aesonus/test-lib": "^2.0"
+        "aesonus/test-lib": "^3.0"
     },
     "require": {
         
