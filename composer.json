@@ -18,6 +18,6 @@
         "aesonus/test-lib": "^3.0"
     },
     "require": {
-        
+        "php": "^7.2"
     }
 }
